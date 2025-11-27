@@ -4,7 +4,7 @@ Simulador de una tienda desarrollado en **C++** utilizando **Programación Orien
 
 ---
 
-## ¿Para qué sirve este proyecto? (￣︶￣)　
+## ¿Para qué sirve este proyecto? (ᵔᵕᵔ)　
 
 Este programa permite simular una tienda básica con las siguientes capacidades:
 
