@@ -41,8 +41,7 @@ tienda.dev
 ├── Usuario.h
 ├── Usuario.cpp
 │
-├── Admin.h
-├── Admin.cpp
+├── Venta.h
 │
 ├── Carrito.h
 ├── Carrito.cpp
@@ -66,13 +65,6 @@ tienda.dev
 * Atributos: nombre
 * Métodos: getters, mostrarInfo
 * Ubicación: `Usuario.h / Usuario.cpp`
-
-### **Admin (hereda de Usuario)**
-
-* Atributos: ninguno extra
-* Métodos extra: agregarProducto(), eliminarProducto()
-* Relación UML: **Herencia**
-* Ubicación: `Admin.h / Admin.cpp`
 
 ### **Carrito (composición)**
 
@@ -101,7 +93,7 @@ Descarga la cargeta "proyecto" con todos los archivos o descargue todos los arch
 Compila todos los archivos juntos, por ejemplo (en consola):
 
 ```
-g++ main.cpp Tienda.cpp Producto.cpp Usuario.cpp Admin.cpp Carrito.cpp -o tienda
+g++ main.cpp Tienda.cpp Producto.cpp Usuario.cpp Carrito.cpp -o tienda
 ```
 Si tienes DEV C++:
 ```
