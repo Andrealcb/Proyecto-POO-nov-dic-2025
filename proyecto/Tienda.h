@@ -1,6 +1,9 @@
 #ifndef TIENDA_H
 #define TIENDA_H
 
+#include "Admin.h"
+#include "Gerente.h"
+#include "Empleado.h"
 #include <vector>
 #include <string>
 #include "Producto.h"
@@ -8,22 +11,27 @@
 #include "Venta.h"
 #include "Carrito.h"
 
+/*
+ * Clase Tienda: contiene las "tablas" en memoria, métodos CRUD, ventas y reportes.
+ */
 class Tienda {
 private:
-    // tablas
-    std::vector<Producto> productos;
-    std::vector<Usuario> empleados;
-    std::vector<Usuario> gerentes;
-    std::vector<Usuario> administradores;
+    // "Tablas" simuladas
     std::vector<Venta> ventas_registradas;
     std::vector<std::vector<std::string>> reporte_ventas;
+    std::vector<Administrador> administradores;
+    std::vector<Gerente> gerentes;
+    std::vector<Empleado> empleados;
+    std::vector<Producto> productos;
 
-    // ids automaticos
+
+
+    // IDs automáticos
     int nextProductoId;
     int nextUsuarioId;
     int nextVentaId;
 
-    // helpers
+    // Helpers
     std::string nowString() const;
     std::string readLine(const std::string& prompt = "") const;
     double parseDouble(const std::string& s) const;
@@ -36,17 +44,17 @@ private:
 public:
     Tienda();
 
-    // inicio
+    // Inicialización
     void crearTablas();
 
-    // productos
+    // Productos
     void agregarProducto();
     void buscarProductoPorCodigo() const;
     void modificarProducto();
     void eliminarProducto();
     void mostrarProductos() const;
 
-    // usuarios
+    // Usuarios
     void agregarGerente();
     void agregarEmpleado();
     void modificarGerente();
@@ -56,21 +64,25 @@ public:
     void mostrarUsuarios() const;
     void mostrarUsuariosCombinados() const;
 
-    // ventas / carrito
-    void venderProducto(const std::string& nombre_usuario = "Desconocido", const std::string& rango = "Desconocido");
-    void registrarVenta(const std::vector<std::pair<std::vector<std::string>,int>>& productos_a_vender, double total_venta, const std::string& usuario, const std::string& rango);
+    // Ventas / Carrito
+    void venderProducto(const std::string& nombre_usuario = "Desconocido",
+                        const std::string& rango = "Desconocido");
+    void registrarVenta(const std::vector<std::pair<std::vector<std::string>,int>>& productos_a_vender,
+                        double total_venta,
+                        const std::string& usuario,
+                        const std::string& rango);
 
-    // reportes
+    // Reportes
     void mostrarReporteVentas() const;
 
-    // login
+    // Login
     std::vector<std::string> siAdministrador() const;
     std::vector<std::string> siGerente() const;
     std::vector<std::string> siEmpleado() const;
     void administradorNo();
 
-    // menu principal
+    // Run / Menú
     void run();
 };
 
-#endif 
+#endif

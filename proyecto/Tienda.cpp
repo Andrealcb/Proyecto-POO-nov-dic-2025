@@ -1,15 +1,21 @@
 #include "Tienda.h"
+#include "Admin.h"
+#include "Gerente.h"
+#include "Empleado.h"
 #include <iostream>
 #include <chrono>
 #include <ctime>
 #include <iomanip>
 #include <algorithm>
+#include <cctype>
+
 
 using namespace std;
 
+/* Constructor */
 Tienda::Tienda() : nextProductoId(1), nextUsuarioId(1), nextVentaId(1) {}
 
-// helpers
+/* Devuelve fecha y hora actual en formato "YYYY-MM-DD HH:MM:SS" */
 string Tienda::nowString() const {
     auto now = chrono::system_clock::now();
     time_t t = chrono::system_clock::to_time_t(now);
@@ -24,6 +30,7 @@ string Tienda::nowString() const {
     return string(buf);
 }
 
+/* Lectura de línea con prompt */
 string Tienda::readLine(const string& prompt) const {
     if (!prompt.empty()) cout << prompt;
     string s;
@@ -31,6 +38,7 @@ string Tienda::readLine(const string& prompt) const {
     return s;
 }
 
+/* Parse helpers */
 double Tienda::parseDouble(const string& s) const {
     try { return stod(s); } catch(...) { return 0.0; }
 }
@@ -38,16 +46,19 @@ int Tienda::parseInt(const string& s) const {
     try { return stoi(s); } catch(...) { return 0; }
 }
 
+/* Busca índice de producto por código */
 int Tienda::indexProductoPorCodigo(const string& codigo) const {
     for (size_t i = 0; i < productos.size(); ++i)
         if (productos[i].getCodigo() == codigo) return (int)i;
     return -1;
 }
 
+/* Indica si existe el código */
 bool Tienda::codigoExiste(const string& codigo) const {
     return indexProductoPorCodigo(codigo) != -1;
 }
 
+/* Verifica si existe un usuario con ese nombre en cualquier colección */
 bool Tienda::usuarioExisteEnColeccion(const string& nombre) const {
     for (const auto& a : administradores) if (a.getUsuario() == nombre) return true;
     for (const auto& g : gerentes) if (g.getUsuario() == nombre) return true;
@@ -55,12 +66,12 @@ bool Tienda::usuarioExisteEnColeccion(const string& nombre) const {
     return false;
 }
 
-// crear tablas (simulado) 
+/* Crear tablas (simulado) */
 void Tienda::crearTablas() {
     cout << "Tablas listas." << endl;
 }
 
-// productos
+/* productos */
 void Tienda::agregarProducto() {
     cout << "\n--- Agregar Producto ---\n";
     string nombre = readLine("Ingrese el nombre del producto: ");
@@ -132,15 +143,15 @@ void Tienda::mostrarProductos() const {
     for (const auto& p : productos) p.mostrar();
 }
 
-// usuarios 
+/* usuarios */
 void Tienda::agregarGerente() {
     cout << "\n--- Agregar Gerente ---\n";
     string nombre = readLine("Ingrese el nombre de usuario(gerente): ");
     if (nombre.empty()) { cout << "Usuario no puede ser vacio.\n"; return; }
     if (usuarioExisteEnColeccion(nombre)) { cout << "Usuario ya existe.\n"; return; }
     string pass = readLine("Ingrese contraseña: ");
-    Usuario u(nextUsuarioId++, nombre, pass, Rol::GERENTE);
-    gerentes.push_back(u);
+    Gerente g(nextUsuarioId++, nombre, pass);
+    gerentes.push_back(g);
     cout << "Gerente agregado.\n";
 }
 
@@ -150,8 +161,8 @@ void Tienda::agregarEmpleado() {
     if (nombre.empty()) { cout << "Usuario no puede ser vacio.\n"; return; }
     if (usuarioExisteEnColeccion(nombre)) { cout << "Usuario ya existe.\n"; return; }
     string pass = readLine("Ingrese contraseña: ");
-    Usuario u(nextUsuarioId++, nombre, pass, Rol::EMPLEADO);
-    empleados.push_back(u);
+    Empleado e(nextUsuarioId++, nombre, pass);
+    empleados.push_back(e);
     cout << "Empleado agregado.\n";
 }
 
@@ -192,7 +203,7 @@ void Tienda::modificarEmpleado() {
 void Tienda::eliminarGerente() {
     cout << "\n--- Eliminar Gerente ---\n";
     string user = readLine("Ingrese el Usuario que desea eliminar: ");
-    auto it = remove_if(gerentes.begin(), gerentes.end(), [&](const Usuario& u){ return u.getUsuario() == user; });
+    auto it = remove_if(gerentes.begin(), gerentes.end(), [&](const Gerente& u){ return u.getUsuario() == user; });
     if (it != gerentes.end()) { gerentes.erase(it, gerentes.end()); cout << "Usuario eliminado.\n"; }
     else cout << "Usuario no encontrado.\n";
 }
@@ -200,7 +211,7 @@ void Tienda::eliminarGerente() {
 void Tienda::eliminarEmpleado() {
     cout << "\n--- Eliminar Empleado ---\n";
     string user = readLine("Ingrese el Usuario que desea eliminar: ");
-    auto it = remove_if(empleados.begin(), empleados.end(), [&](const Usuario& u){ return u.getUsuario() == user; });
+    auto it = remove_if(empleados.begin(), empleados.end(), [&](const Empleado& u){ return u.getUsuario() == user; });
     if (it != empleados.end()) { empleados.erase(it, empleados.end()); cout << "Usuario eliminado.\n"; }
     else cout << "Usuario no encontrado.\n";
 }
@@ -218,7 +229,7 @@ void Tienda::mostrarUsuariosCombinados() const {
     for (const auto& e : empleados) cout << "Empleado: " << e.getUsuario() << " | Pass: " << e.getContrasena() << "\n";
 }
 
-// ventas
+/* ventas */
 void Tienda::venderProducto(const string& nombre_usuario, const string& rango) {
     cout << "\n--- Vender Producto ---\n";
     Carrito carrito;
@@ -238,7 +249,7 @@ void Tienda::venderProducto(const string& nombre_usuario, const string& rango) {
         if (cantidad_v <= 0) { cout << "Cantidad inválida.\n"; continue; }
         if (p.getCantidad() < cantidad_v) { cout << "No hay suficiente stock.\n"; continue; }
         vector<string> fila = { to_string(p.getId()), p.getNombre(), p.getCodigo(), to_string(p.getPrecio()), to_string(p.getCantidad()) };
-        carrito.agregar(fila, cantidad_v);
+
     }
 
     if (carrito.estaVacio()) { cout << "No se realizo ninguna venta.\n"; return; }
@@ -314,7 +325,7 @@ void Tienda::registrarVenta(const vector<pair<vector<string>,int>>& productos_a_
     }
 }
 
-// reportes
+/* reportes */
 void Tienda::mostrarReporteVentas() const {
     cout << "\n--- REPORTE DE VENTAS ---\n";
     string desde;
@@ -335,7 +346,7 @@ void Tienda::mostrarReporteVentas() const {
     }
 }
 
-// login
+/* login */
 vector<string> Tienda::siAdministrador() const {
     vector<string> res;
     cout << "\nIngrese usuario y contraseña:\n";
@@ -385,12 +396,12 @@ void Tienda::administradorNo() {
     cout << "\nCree un usuario y contraseña para administrador:\n";
     string u = readLine("Usuario: ");
     string p = readLine("Contraseña: ");
-    Usuario a(nextUsuarioId++, u, p, Rol::ADMIN);
+    Administrador a(nextUsuarioId++, u, p);
     administradores.push_back(a);
     cout << "Administrador creado.\n";
 }
 
-// ---------- run / menus ----------
+/* ---------- run / menus ---------- */
 void Tienda::run() {
     crearTablas();
     if (administradores.empty()) {

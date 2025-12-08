@@ -2,30 +2,35 @@
 #define PRODUCTO_H
 
 #include <string>
+using namespace std;
 
 class Producto {
 private:
     int id;
-    std::string nombre;
-    std::string codigo;
-    double precio_unitario;
-    int cantidad_stock;
+    string nombre;
+    string codigo;
+    double precio;
+    int cantidad;
 
 public:
     Producto();
-    Producto(int id, const std::string& nombre, const std::string& codigo, double precio, int cantidad);
+    Producto(int id, string nombre, string codigo, double precio, int cantidad);
 
+    // Getters
     int getId() const;
-    std::string getNombre() const;
-    std::string getCodigo() const;
+    string getNombre() const;
+    string getCodigo() const;
     double getPrecio() const;
     int getCantidad() const;
 
-    void setNombre(const std::string& n);
-    void setPrecio(double p);
-    void setCantidad(int c);
+    // Setters
+    void setNombre(string nombre);
+    void setCodigo(string codigo);
+    void setPrecio(double precio);
+    void setCantidad(int cantidad);
 
     void mostrar() const;
+    bool vender(int cant);
 };
 
-#endif 
+#endif

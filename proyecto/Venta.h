@@ -3,6 +3,9 @@
 
 #include <string>
 
+/*
+ * Estructura Venta: guarda los datos de una venta registrada
+ */
 struct Venta {
     int id;
     std::string producto;
@@ -11,7 +14,7 @@ struct Venta {
     double total;
     std::string vendedor;
     std::string rango;
-    std::string fecha_hora; // "YHH:MM:SS"
+    std::string fecha_hora; // "YYYY-MM-DD HH:MM:SS"
 };
 
-#endif 
+#endif

@@ -4,15 +4,22 @@
 #include <vector>
 #include <string>
 
+/*
+ * ItemCarrito: guarda la fila del producto (vector<string>) y la cantidad seleccionada.
+ * productoRow: [id, nombre, codigo, precio, cantidadStock] (según cómo tu código construye filas)
+ */
 struct ItemCarrito {
-    std::vector<std::string> productoRow; 
+    std::vector<std::string> productoRow;
     int cantidad;
 };
 
+/*
+ * Carrito: administra una lista de ItemCarrito para la venta actual.
+ */
 class Carrito {
 private:
     std::vector<ItemCarrito> items;
-
+    int cantidad = 0; 
 public:
     void agregar(const std::vector<std::string>& productoRow, int cantidad);
     bool estaVacio() const;
@@ -21,4 +28,4 @@ public:
     const std::vector<ItemCarrito>& getItems() const;
 };
 
-#endif 
+#endif
