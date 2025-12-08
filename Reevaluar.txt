@@ -1,0 +1,14 @@
+Me permito solicitar la reevaluación de mi proyecto “Tienda” en C++, ya que considero que cumple con los criterios establecidos en los avances:
+
+Implementación de clases apegadas a requerimientos a partir de un modelo: Todas las clases solicitadas (Producto, Usuario, Carrito, Tienda, Venta) están implementadas según el modelo y se comportan según lo esperado.
+
+Cumplimiento de estándares de código: Se respetan sangrías, estilo de nombres, comentarios y separación en archivos .h y .cpp.
+
+Documentación clara: El proyecto incluye un README que explica para qué sirve, para qué no sirve y cómo se usa, cumpliendo con las buenas prácticas.
+
+Herencia correctamente implementada: Se utilizó herencia real entre la clase base Usuario y sus derivados Administrador, Gerente y Empleado, con polimorfismo en el método getTipo().
+
+Composición: La clase Tienda utiliza Carrito y Producto mediante composición para manejar ventas y productos.
+
+Considero que mi proyecto cumple con los criterios de los Avances 3 y con la documentación y organización de código correspondientes.
+Agradezco de antemano la revisión y quedo atenta a cualquier comentario adicional.
