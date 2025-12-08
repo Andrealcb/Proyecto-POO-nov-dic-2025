@@ -1,37 +1,40 @@
 # Proyecto: Tienda ⌂
 
-Simulador de una tienda desarrollado en **C++** utilizando **Programación Orientada a Objetos**, **herencia**, **composición**, múltiples archivos (`.h` y `.cpp`), y un menú interactivo en consola. 
+Simulador de una tienda desarrollado en **C++** utilizando **Programación Orientada a Objetos (POO)**, **herencia**, **composición**, separación en archivos `.h` y `.cpp`, y un menú interactivo por consola.
 
 ---
 
 ## ¿Para qué sirve este proyecto? (ᵔᵕᵔ)　
 
-Este programa permite simular una tienda básica con las siguientes capacidades:
+Este programa simula una tienda básica con las siguientes funciones:
 
-* Crear productos con nombre, precio y cantidad.
-* Registrar usuarios y administradores (herencia).
+* Crear productos con nombre, código, precio y cantidad.
+* Registrar usuarios mediante herencia (Administrador, Gerente, Empleado).
 * Agregar productos al carrito (composición).
-* Comprar productos (actualizar inventario).
+* Realizar ventas y actualizar el inventario.
 * Mostrar el inventario existente.
-* Mostrar contenido del carrito.
-* Encapsular correctamente datos mediante getters/setters.
-* Probar clases organizadas en múltiples archivos.
+* Generar tickets de compra.
+* Encapsular datos usando getters y setters.
 
 ---
 
 ## ¿Para qué NO sirve? ┬┬﹏┬┬
 
-* No guarda datos en archivos ni bases de datos. 
-* No mantiene la información después de cerrar el programa.
-* No aplica descuentos avanzados, reportes ni interfaz gráfica.
+Este proyecto NO:
+
+* Guarda información en archivos ni en bases de datos.
+* Mantiene los datos después de cerrar el programa.
+* Tiene interfaz gráfica (funciona solo por consola).
+* Realiza operaciones avanzadas como reportes complejos o estadísticas.
 
 ---
 
-##  Estructura del proyecto
+## Estructura del proyecto
+
+
 
 ```
 Proyecto/
-tienda.dev
 │
 ├── main.cpp
 │
@@ -40,6 +43,15 @@ tienda.dev
 │
 ├── Usuario.h
 ├── Usuario.cpp
+│
+├── Admin.h
+├── Admin.cpp
+│
+├── Gerente.h
+├── Gerente.cpp
+│
+├── Empleado.h
+├── Empleado.cpp
 │
 ├── Venta.h
 │
@@ -83,22 +95,22 @@ tienda.dev
 
 ## ¿Cómo se usa?
 
-### **1. Descarga**
-```
-Descarga la cargeta "proyecto" con todos los archivos o descargue todos los archivos y guardelos en una carpeta.
-```
 
-### **2. Compilar**
+---
 
-Compila todos los archivos juntos, por ejemplo (en consola):
+## ¿Cómo se usa?
 
-```
-g++ main.cpp Tienda.cpp Producto.cpp Usuario.cpp Carrito.cpp -o tienda
-```
-Si tienes DEV C++:
-```
-Solo debes abrir el archivo tienda.dev en el IDE y presionar en "Compilar y ejecutar"
-```
+### 1. Compilar
+
+En consola:
+
+```bash
+podiar la direccion de la carpeta con los archivos y poner cd "Dirreccion"
+
+y luego:
+ 
+g++ main.cpp Tienda.cpp Producto.cpp Usuario.cpp Admin.cpp Gerente.cpp Empleado.cpp Carrito.cpp -o tienda
+
 
 ### **2. Ejecutar**
 
