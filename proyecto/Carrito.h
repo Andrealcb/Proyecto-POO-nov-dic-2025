@@ -6,7 +6,7 @@
 
 /*
  * ItemCarrito: guarda la fila del producto (vector<string>) y la cantidad seleccionada.
- * productoRow: [id, nombre, codigo, precio, cantidadStock] (según cómo tu código construye filas)
+ * productoRow: [id, nombre, codigo, precio, cantidadStock] 
  */
 struct ItemCarrito {
     std::vector<std::string> productoRow;
